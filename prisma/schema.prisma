@@ -15,7 +15,7 @@ model Trip {
   name                String
   location            String
   locationDescription String
-  latidute            Float
+  latitude            Float
   longitude           Float
   startDate           DateTime
   endDate             DateTime
