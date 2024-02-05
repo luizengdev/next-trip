@@ -20,6 +20,7 @@ const TripItem = ({ trip }: TripItemProps) => {
         />
       </Link>
 
+      {/* TÍTULO E INFORMAÇÔES */}
       <h3 className="text-primary font-medium text-md mt-2">{trip.name}</h3>
       <div className="flex items-center gap-1 my-1">
         <ReactCountryFlag countryCode={trip.countryCode} svg />
