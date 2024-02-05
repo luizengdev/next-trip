@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { AiOutlineMenu } from "react-icons/ai";
+import Link from "next/link";
 
 const Header = () => {
   const [menuIsOpen, setMenuIsOpen] = React.useState(false);
@@ -19,10 +20,12 @@ const Header = () => {
 
   return (
     <div className="container mx-auto p-5 py-0 h-[93px] flex justify-between items-center">
-      <div className="flex items-center gap-2">
-        <Image src="/logo.png" width={50} height={32} alt="Logo" />
-        <h1 className="text-primary text-xl font-semibold">Next Trip</h1>
-      </div>
+      <Link href="/">
+        <div className="flex items-center gap-2">
+          <Image src="/logo.png" width={50} height={32} alt="Logo" />
+          <h1 className="text-primary text-xl font-semibold">Next Trip</h1>
+        </div>
+      </Link>
 
       {status === "unauthenticated" && (
         <button
