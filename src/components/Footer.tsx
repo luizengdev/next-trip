@@ -7,7 +7,7 @@ const Footer = () => {
     <div className="bg-walterWhite p-2 justify-center flex flex-col items-center">
       <Link href="/">
         <div className="flex items-center gap-2">
-          <Image src="/logo-no-bg.png" width={50} height={32} alt="Logo" />
+          <Image src="/logo-no-bg.png" width={40} height={32} alt="Logo" />
           <h1 className="text-primary text-xl font-semibold">Next Trip</h1>
         </div>
       </Link>
