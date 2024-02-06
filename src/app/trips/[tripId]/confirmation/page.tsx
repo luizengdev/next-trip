@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import Button from "@/components/Button";
 
 import { Trip } from "@prisma/client";
+import { toast } from "react-toastify";
 
 const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
   const [trip, setTrip] = useState<Trip | null>();
@@ -54,7 +55,7 @@ const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
   if (!trip) return null;
 
   const handleBuyClick = async () => {
-    const res = await fetch("/api/payment", {
+    const res = await fetch("/api/trips/paiment", {
       method: "POST",
       body: Buffer.from(
         JSON.stringify({
@@ -70,13 +71,13 @@ const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
       ),
     });
 
-    //   if (!res.ok) {
-    //     return toast.error("Ocorreu um erro ao realizar a reserva!", {
-    //       position: "bottom-center",
-    //     });
-    //   }
+    if (!res.ok) {
+      return toast.error("Ocorreu um erro ao realizar a reserva!", {
+        position: "bottom-center",
+      });
+    }
 
-    //   const { sessionId } = await res.json();
+    const { sessionId } = await res.json();
 
     //   const stripe = await loadStripe(
     //     process.env.NEXT_PUBLIC_STRIPE_KEY as string
@@ -84,9 +85,9 @@ const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
 
     //   await stripe?.redirectToCheckout({ sessionId });
 
-    //   toast.success("Reserva realizada com sucesso!", {
-    //     position: "bottom-center",
-    //   });
+    toast.success("Reserva realizada com sucesso!", {
+      position: "bottom-center",
+    });
   };
 
   const startDate = new Date(searchParams.get("startDate") as string);
