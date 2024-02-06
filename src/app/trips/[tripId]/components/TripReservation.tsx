@@ -60,7 +60,7 @@ const TripReservation = ({
         message: "Esta data já está reservada.",
       });
 
-      setError("endDate", {
+      return setError("endDate", {
         type: "manual",
         message: "Esta data já está reservada.",
       });
