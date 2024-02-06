@@ -8,7 +8,7 @@ import React from "react";
 
 const index = () => {
   return (
-    <div className="container mx-auto p-3.5 bg-search-background bg-cover bg-center bg bg-no-repeat">
+    <div className="container mx-auto p-5 bg-search-background bg-cover bg-center bg bg-no-repeat">
       <h1 className="font-semibold text-2xl text-primaryDarker text-center">
         Encontre sua próxima <span className="text-primary">viagem!</span>
       </h1>
