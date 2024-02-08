@@ -13,7 +13,7 @@ const Trips = () => {
   useEffect(() => {
     const fetchTrips = async () => {
       const response = await fetch(
-        `/api/trips/search?text=${searchParams.get("text") ?? ""}&startDate=${searchParams.get("startDate")}&budget=${searchParams.get("budget")}`
+        `/api/trips/search?text=${searchParams.get("text") ?? ""}&startDate=${searchParams.get("startDate")}&budget=${searchParams.get("budget")}`,
       );
 
       const data = await response.json();
@@ -36,7 +36,7 @@ const Trips = () => {
       </h2>
 
       <div className="flex flex-col gap-4">
-        {trips?.map((trip) => <TripItem key={trip.id} trip={trip} />)}
+        {trips?.map(trip => <TripItem key={trip.id} trip={trip} />)}
       </div>
     </div>
   );
