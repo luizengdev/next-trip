@@ -13,6 +13,7 @@ import Button from "@/components/Button";
 
 import { Trip } from "@prisma/client";
 import { toast } from "react-toastify";
+import { loadStripe } from "@stripe/stripe-js";
 
 const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
   const [trip, setTrip] = useState<Trip | null>();
@@ -55,7 +56,7 @@ const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
   if (!trip) return null;
 
   const handleBuyClick = async () => {
-    const res = await fetch("/api/trips/paiment", {
+    const res = await fetch("http://localhost:3000/api/payment", {
       method: "POST",
       body: Buffer.from(
         JSON.stringify({
@@ -79,11 +80,11 @@ const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
 
     const { sessionId } = await res.json();
 
-    //   const stripe = await loadStripe(
-    //     process.env.NEXT_PUBLIC_STRIPE_KEY as string
-    //   );
+    const stripe = await loadStripe(
+      process.env.NEXT_PUBLIC_STRIPE_KEY as string
+    );
 
-    //   await stripe?.redirectToCheckout({ sessionId });
+    await stripe?.redirectToCheckout({ sessionId });
 
     toast.success("Reserva realizada com sucesso!", {
       position: "bottom-center",
@@ -130,7 +131,7 @@ const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
 
         <div className="flex justify-between mt-1">
           <p className="text-primaryDarker">Total:</p>
-          <p className="font-medium">R${totalPrice}.00</p>
+          <p className="font-medium">R${totalPrice}</p>
         </div>
       </div>
 
