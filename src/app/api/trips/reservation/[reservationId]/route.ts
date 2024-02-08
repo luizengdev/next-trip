@@ -6,12 +6,14 @@ export async function DELETE(
   { params: { reservationId } }: { params: { reservationId: string } }
 ) {
   if (!reservationId) {
-    return {
-      status: 400,
-      body: {
-        message: "Missing reservationId",
-      },
-    };
+    return new NextResponse(
+      JSON.stringify({
+        status: 400,
+        body: {
+          message: "Missing reservationId",
+        },
+      })
+    );
   }
 
   const reservation = await prisma.tripReservation.delete({
