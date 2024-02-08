@@ -7,7 +7,7 @@ interface TripHeaderProps {
   trip: Trip;
 }
 
-const TripHeader = ({ trip }: TripHeaderProps & { trip: Trip }) => {
+const TripHeader = ({ trip }: TripHeaderProps) => {
   return (
     <div className="flex flex-col">
       <div className="relative h-[300px] w-full">

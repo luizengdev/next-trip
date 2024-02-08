@@ -90,13 +90,17 @@ const TripReservation = ({
 
   return (
     <div className="flex flex-col px-5">
+      <p className="text-xl hidden text-primaryDarker mb-4">
+        <span className="font-semibold">R${pricePerDay}</span> por dia
+      </p>
+
       <div className="flex gap-4">
         <Controller
           name="startDate"
           rules={{
             required: {
               value: true,
-              message: "Data início é obrigatória.",
+              message: "Data inicial é obrigatória.",
             },
           }}
           control={control}
@@ -106,9 +110,9 @@ const TripReservation = ({
               errorMessage={errors?.startDate?.message}
               onChange={field.onChange}
               selected={field.value}
-              minDate={tripStartDate}
               placeholderText="Data de Início"
               className="w-full"
+              minDate={tripStartDate}
             />
           )}
         />
@@ -128,10 +132,10 @@ const TripReservation = ({
               errorMessage={errors?.endDate?.message}
               onChange={field.onChange}
               selected={field.value}
-              maxDate={tripEndDate}
-              minDate={startDate ?? tripStartDate}
               placeholderText="Data Final"
               className="w-full"
+              maxDate={tripEndDate}
+              minDate={startDate ?? tripStartDate}
             />
           )}
         />
@@ -141,11 +145,7 @@ const TripReservation = ({
         {...register("guests", {
           required: {
             value: true,
-            message: "Por favor, informe o número de hóspedes",
-          },
-          min: {
-            value: 1,
-            message: "O número de hóspedes deve ser maior que 0.",
+            message: "Número de hóspedes é obrigatório.",
           },
           max: {
             value: maxGuests,
@@ -163,12 +163,12 @@ const TripReservation = ({
         <p className="font-medium text-sm text-primaryDarker">Total: </p>
         <p className="font-medium text-sm text-primaryDarker">
           {startDate && endDate
-            ? `R$ ${differenceInDays(endDate, startDate) * pricePerDay}.00`
-            : ""}
+            ? `R$${differenceInDays(endDate, startDate) * pricePerDay}` ?? 1
+            : "R$0"}
         </p>
       </div>
 
-      <div className="pb-10 border-b border-grayLighter w-full">
+      <div className="pb-10 border-b border-b-grayLighter w-full">
         <Button
           onClick={() => handleSubmit(onSubmit)()}
           className="mt-3 w-full"
