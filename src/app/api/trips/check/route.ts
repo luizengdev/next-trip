@@ -1,6 +1,5 @@
 import { prisma } from "@/lib/prisma";
 import { differenceInDays, isBefore } from "date-fns";
-import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   const req = await request.json();
@@ -12,17 +11,17 @@ export async function POST(request: Request) {
   });
 
   if (!trip) {
-    return new NextResponse(
+    return new Response(
       JSON.stringify({
         error: {
           code: "TRIP_NOT_FOUND",
         },
-      })
+      }),
     );
   }
 
   if (isBefore(new Date(req.startDate), new Date(trip.startDate))) {
-    return new NextResponse(
+    return new Response(
       JSON.stringify({
         error: {
           code: "INVALID_START_DATE",
@@ -30,13 +29,13 @@ export async function POST(request: Request) {
       }),
       {
         status: 400,
-      }
+      },
     );
   }
 
   // Data de fim recebida precisa ser menor ou igual a data de fim da viagem
   if (isBefore(new Date(trip.endDate), new Date(req.endDate))) {
-    return new NextResponse(
+    return new Response(
       JSON.stringify({
         error: {
           code: "INVALID_END_DATE",
@@ -44,7 +43,7 @@ export async function POST(request: Request) {
       }),
       {
         status: 400,
-      }
+      },
     );
   }
 
@@ -62,22 +61,22 @@ export async function POST(request: Request) {
   });
 
   if (reservations.length > 0) {
-    return new NextResponse(
+    return new Response(
       JSON.stringify({
         error: {
           code: "TRIP_ALREADY_RESERVED",
         },
-      })
+      }),
     );
   }
 
-  return new NextResponse(
+  return new Response(
     JSON.stringify({
       success: true,
       trip,
       totalPrice:
         differenceInDays(new Date(req.endDate), new Date(req.startDate)) *
         Number(trip.pricePerDay),
-    })
+    }),
   );
 }

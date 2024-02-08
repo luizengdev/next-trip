@@ -1,5 +1,4 @@
 import { getServerSession } from "next-auth";
-import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { authOptions } from "../auth/[...nextauth]/route";
 
@@ -50,7 +49,7 @@ export async function POST(request: Request) {
     mode: "payment",
   });
 
-  return new NextResponse(JSON.stringify({ sessionId: session.id }), {
+  return new Response(JSON.stringify({ sessionId: session.id }), {
     status: 200,
   });
 }

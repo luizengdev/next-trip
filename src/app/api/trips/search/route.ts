@@ -1,10 +1,9 @@
 import { prisma } from "@/lib/prisma";
-import { NextResponse } from "next/server";
 
 const generateSearchQuery = (
   text: string,
   startDate?: string | null,
-  budget?: string | null
+  budget?: string | null,
 ) => {
   let searchQuery: any = {
     OR: [
@@ -68,11 +67,11 @@ export async function GET(request: Request) {
   const budget = searchParams.get("budget");
 
   if (!text) {
-    return new NextResponse(
+    return new Response(
       JSON.stringify({
         message: "Missing text parameter",
       }),
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -80,5 +79,5 @@ export async function GET(request: Request) {
     where: generateSearchQuery(text, startDate, budget),
   });
 
-  return new NextResponse(JSON.stringify(trips), { status: 200 });
+  return new Response(JSON.stringify(trips), { status: 200 });
 }
