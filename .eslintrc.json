@@ -25,7 +25,8 @@
   "plugins": ["react", "react-hooks", "@typescript-eslint"],
   "rules": {
     "react/react-in-jsx-scope": "off",
-    "@typescript-eslint/no-var-requires": "off"
+    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/no-unused-vars": "off"
   },
   "ignorePatterns": ["node_modules", "!.*"]
 }
