@@ -26,7 +26,7 @@ const TripSearch = () => {
 
   const onSubmit = (data: TripSearchForm) => {
     router.push(
-      `/trips/search?text=${data.text}&startDate=${data.startDate?.toISOString()}&budget=${data.budget}`
+      `/trips/search?text=${data.text}&startDate=${data.startDate?.toISOString()}&budget=${data.budget}`,
     );
   };
 
@@ -79,7 +79,12 @@ const TripSearch = () => {
           />
         </div>
 
-        <Button onClick={() => handleSubmit(onSubmit)()}>Buscar</Button>
+        <Button
+          onClick={() => handleSubmit(onSubmit)()}
+          aria-label="Buscar viagem"
+        >
+          Buscar
+        </Button>
       </div>
     </div>
   );

@@ -8,16 +8,16 @@ import ReactCountryFlag from "react-country-flag";
 import ptBR from "date-fns/locale/pt-BR";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-
 import Button from "@/components/Button";
-
 import { Trip } from "@prisma/client";
 import { toast } from "react-toastify";
 import { loadStripe } from "@stripe/stripe-js";
+import { BeatLoader } from "react-spinners";
 
 const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
   const [trip, setTrip] = useState<Trip | null>();
   const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -56,6 +56,7 @@ const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
   if (!trip) return null;
 
   const handleBuyClick = async () => {
+    setIsLoading(true);
     const res = await fetch("/api/payment", {
       method: "POST",
       body: Buffer.from(
@@ -85,6 +86,8 @@ const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
     );
 
     await stripe?.redirectToCheckout({ sessionId });
+
+    setIsLoading(false);
 
     toast.success("Reserva realizada com sucesso!", {
       position: "bottom-center",
@@ -151,12 +154,17 @@ const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
           </div>
 
           <div>
-            <h3 className="font-semibold mt-5">Quantidade de Diarias</h3>
-            <p>{days} diarias</p>
+            <h3 className="font-semibold mt-5">Quantidade de Diárias</h3>
+            <p>{days} diárias</p>
           </div>
         </div>
 
-        <Button className="mt-5" onClick={handleBuyClick}>
+        <Button
+          className="mt-5"
+          onClick={handleBuyClick}
+          spinner={<BeatLoader size={15} color="#fff" />}
+          isLoading={isLoading}
+        >
           Finalizar Compra
         </Button>
       </div>
