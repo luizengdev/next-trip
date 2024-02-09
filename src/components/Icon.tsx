@@ -13,7 +13,9 @@ const Icon: FC<IconProps> = ({ path, name, alt, href }) => {
   return (
     <Link href={href} className="flex flex-col items-center gap-2">
       <Image src={path} width={35} height={35} alt={alt} />
-      <span className="text-primary lg:text-base">{name}</span>
+      <span className="text-GrayPrimaryLighter hover:text-primary lg:text-base">
+        {name}
+      </span>
     </Link>
   );
 };
