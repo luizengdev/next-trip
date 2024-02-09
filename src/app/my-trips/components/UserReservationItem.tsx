@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { Prisma } from "@prisma/client";
 import ReactCountryFlag from "react-country-flag";
@@ -7,6 +7,7 @@ import { ptBR } from "date-fns/locale";
 import Button from "@/components/Button";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import Modal from "@/app/my-trips/components/Modal";
 
 interface UserReservationItemProps {
   reservation: Prisma.TripReservationGetPayload<{
@@ -20,6 +21,8 @@ const UserReservationItem = ({
   fetchReservations,
 }: UserReservationItemProps) => {
   const router = useRouter();
+
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   const { trip } = reservation;
 
@@ -109,13 +112,32 @@ const UserReservationItem = ({
           <div className="flex justify-between mt-1">
             <p className="text-primaryDarker text-sm mt-2">Total:</p>
             <p className="font-medium text-sm">
-              R${Number(reservation.totalPaid)}
+              R${Number(reservation.totalPaid).toFixed(2).replace(".", ",")}
             </p>
           </div>
 
-          <Button variant="danger" className="mt-5" onClick={handleDeleteClick}>
+          <Button
+            variant="danger"
+            className="mt-5"
+            onClick={() => setShowModal(true)}
+          >
             Cancelar
           </Button>
+
+          {/* Modal de confirmação */}
+          {showModal && (
+            <Modal onClose={() => setShowModal(false)}>
+              <h2 className="flex font-semibold text-primaryDarker mb-2">
+                Tem certeza que deseja cancelar esta reserva?
+              </h2>
+              <Button variant="danger" onClick={handleDeleteClick}>
+                Sim, cancelar a reserva
+              </Button>
+              <Button className="mt-4" onClick={() => setShowModal(false)}>
+                Voltar
+              </Button>
+            </Modal>
+          )}
         </div>
       </div>
     </div>
