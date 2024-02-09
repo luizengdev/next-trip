@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { Prisma } from "@prisma/client";
 import ReactCountryFlag from "react-country-flag";
-import { format } from "date-fns";
+import { format, differenceInDays } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import Button from "@/components/Button";
 import { toast } from "react-toastify";
@@ -39,6 +39,11 @@ const UserReservationItem = ({
     fetchReservations();
   };
 
+  const days = differenceInDays(
+    new Date(reservation.endDate),
+    new Date(reservation.startDate),
+  );
+
   return (
     <div>
       {/* CARD */}
@@ -68,23 +73,34 @@ const UserReservationItem = ({
         </div>
 
         <div className="flex flex-col mt-5 text-primaryDarker">
-          <h3 className="text-sm">Data</h3>
+          <h3 className="text-sm font-semibold">Data</h3>
           <div className="flex items-center gap-1">
             <p className="text-sm">
-              {format(new Date(reservation.startDate), "dd 'de' MMMM", {
+              {format(new Date(reservation.startDate), "dd/MM/yyyy", {
                 locale: ptBR,
               })}
             </p>
-            {" - "}
+            {" a "}
             <p className="text-sm">
-              {format(new Date(reservation.endDate), "dd 'de' MMMM", {
+              {format(new Date(reservation.endDate), "dd/MM/yyyy", {
                 locale: ptBR,
               })}
             </p>
           </div>
 
-          <h3 className="mt-5 text-sm">Hóspedes</h3>
-          <p className="text-sm pb-5">{reservation.guests} hóspedes</p>
+          <div className="flex flex-row justify-between">
+            <div>
+              <h3 className="font-semibold mt-5 text-sm">Hóspedes</h3>
+              <p className="text-sm pb-5">{reservation.guests} hóspedes</p>
+            </div>
+
+            <div>
+              <h3 className="text-sm font-semibold mt-5">
+                Quantidade de Diárias
+              </h3>
+              <p>{days} diárias</p>
+            </div>
+          </div>
 
           <h3 className="font-semibold text-primaryDarker mt-3 pt-5 border-t border-solid border-grayLighter">
             Informações sobre o preço

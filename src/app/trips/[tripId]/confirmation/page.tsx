@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { format } from "date-fns";
+import { differenceInDays, format } from "date-fns";
 import ReactCountryFlag from "react-country-flag";
 import ptBR from "date-fns/locale/pt-BR";
 import { useSession } from "next-auth/react";
@@ -68,7 +68,7 @@ const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
           coverImage: trip.coverImage,
           name: trip.name,
           description: trip.description,
-        })
+        }),
       ),
     });
 
@@ -81,7 +81,7 @@ const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
     const { sessionId } = await res.json();
 
     const stripe = await loadStripe(
-      process.env.NEXT_PUBLIC_STRIPE_KEY as string
+      process.env.NEXT_PUBLIC_STRIPE_KEY as string,
     );
 
     await stripe?.redirectToCheckout({ sessionId });
@@ -94,6 +94,7 @@ const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
   const startDate = new Date(searchParams.get("startDate") as string);
   const endDate = new Date(searchParams.get("endDate") as string);
   const guests = searchParams.get("guests");
+  const days = differenceInDays(new Date(endDate), new Date(startDate));
 
   return (
     <div className="container mx-auto p-5 lg:max-w-[600px]">
@@ -138,13 +139,22 @@ const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
       <div className="flex flex-col mt-5 text-primaryDarker">
         <h3 className="font-semibold">Data</h3>
         <div className="flex items-center gap-1 mt-1">
-          <p>{format(startDate, "dd 'de' MMMM", { locale: ptBR })}</p>
-          {" - "}
-          <p>{format(endDate, "dd 'de' MMMM", { locale: ptBR })}</p>
+          <p>{format(startDate, "dd/MM/yyyy", { locale: ptBR })}</p>
+          {" a "}
+          <p>{format(endDate, "dd/MM/yyyy", { locale: ptBR })}</p>
         </div>
 
-        <h3 className="font-semibold mt-5">Hóspedes</h3>
-        <p>{guests} hóspedes</p>
+        <div className="flex flex-row justify-between">
+          <div>
+            <h3 className="font-semibold mt-5">Hóspedes</h3>
+            <p>{guests} hóspedes</p>
+          </div>
+
+          <div>
+            <h3 className="font-semibold mt-5">Quantidade de Diarias</h3>
+            <p>{days} diarias</p>
+          </div>
+        </div>
 
         <Button className="mt-5" onClick={handleBuyClick}>
           Finalizar Compra
