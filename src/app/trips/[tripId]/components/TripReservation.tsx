@@ -7,9 +7,11 @@ import { differenceInDays } from "date-fns";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
+import { BeatLoader } from "react-spinners";
 
 interface TripReservationProps {
   tripId: string;
+  name: string;
   tripStartDate: Date;
   tripEndDate: Date;
   maxGuests: number;
@@ -24,6 +26,7 @@ interface TripReservationForm {
 
 const TripReservation = ({
   tripId,
+  name,
   maxGuests,
   tripStartDate,
   tripEndDate,
@@ -38,9 +41,13 @@ const TripReservation = ({
     setError,
   } = useForm<TripReservationForm>();
 
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+
   const router = useRouter();
 
   const onSubmit = async (data: TripReservationForm) => {
+    setIsLoading(true);
+
     const response = await fetch("/api/trips/check", {
       method: "POST",
       body: Buffer.from(
@@ -48,7 +55,7 @@ const TripReservation = ({
           startDate: data.startDate,
           endDate: data.endDate,
           tripId,
-        })
+        }),
       ),
     });
 
@@ -81,8 +88,10 @@ const TripReservation = ({
     }
 
     router.push(
-      `/trips/${tripId}/confirmation?startDate=${data.startDate?.toISOString()}&endDate=${data.endDate?.toISOString()}&guests=${data.guests}`
+      `/trips/${tripId}/confirmation?startDate=${data.startDate?.toISOString()}&endDate=${data.endDate?.toISOString()}&guests=${data.guests}`,
     );
+
+    setIsLoading(false);
   };
 
   const startDate = watch("startDate");
@@ -151,6 +160,10 @@ const TripReservation = ({
             value: maxGuests,
             message: `Número de hóspedes não pode ser maior que ${maxGuests}.`,
           },
+          min: {
+            value: 1,
+            message: `Número de hóspedes não pode ser menor que 1.`,
+          },
         })}
         placeholder={`Número de hóspedes (max: ${maxGuests})`}
         className="mt-4"
@@ -170,8 +183,11 @@ const TripReservation = ({
 
       <div className="pb-10 border-b border-b-grayLighter w-full">
         <Button
-          onClick={() => handleSubmit(onSubmit)()}
           className="mt-3 w-full"
+          onClick={() => handleSubmit(onSubmit)()}
+          spinner={<BeatLoader size={15} color="#fff" />}
+          isLoading={isLoading}
+          aria-label={`Reservar Viagem ${name}`}
         >
           Reservar agora
         </Button>
