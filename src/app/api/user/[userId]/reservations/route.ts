@@ -1,5 +1,4 @@
 import { prisma } from "@/lib/prisma";
-import { NextResponse } from "next/server";
 
 export async function GET(
   request: Request,
@@ -8,10 +7,16 @@ export async function GET(
   const { searchParams } = new URL(request.url);
 
   if (!userId) {
-    return {
-      status: 400,
-      body: "Missing userId",
-    };
+    return new Response(
+      JSON.stringify({
+        body: {
+          message: "Missing userId",
+        },
+      }),
+      {
+        status: 400,
+      },
+    );
   }
 
   const reservations = await prisma.tripReservation.findMany({
@@ -23,5 +28,7 @@ export async function GET(
     },
   });
 
-  return new NextResponse(JSON.stringify(reservations), { status: 200 });
+  console.log({ reservations });
+
+  return new Response(JSON.stringify(reservations), { status: 200 });
 }
