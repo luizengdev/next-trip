@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { NextResponse } from "next/server";
 
 const generateSearchQuery = (
   text: string,
@@ -67,7 +68,7 @@ export async function GET(request: Request) {
   const budget = searchParams.get("budget");
 
   if (!text) {
-    return new Response(
+    return new NextResponse(
       JSON.stringify({
         message: "Missing text parameter",
       }),
@@ -79,5 +80,5 @@ export async function GET(request: Request) {
     where: generateSearchQuery(text, startDate, budget),
   });
 
-  return new Response(JSON.stringify(trips), { status: 200 });
+  return new NextResponse(JSON.stringify(trips), { status: 200 });
 }
