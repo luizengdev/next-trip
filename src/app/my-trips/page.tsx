@@ -22,7 +22,7 @@ const MyTrips = () => {
 
   const fetchReservations = async () => {
     const response = await fetch(
-      `/api/user/${(data?.user as any)?.id}/reservations`
+      `/api/user/${(data?.user as any)?.id}/reservations`,
     );
 
     const json = await response.json();
@@ -40,12 +40,12 @@ const MyTrips = () => {
 
   return (
     <div className="container mx-auto p-5">
-      <h1 className="font-semibold text-primaryDarker text-xl">
+      <h1 className="font-semibold text-primaryDarker text-xl lg:mb-5">
         Minhas Viagens
       </h1>
       {reservations.length > 0 ? (
-        <div className="flex flex-col">
-          {reservations?.map((reservation) => (
+        <div className="flex flex-col lg:grid lg:grid-cols-3 lg:gap-14">
+          {reservations?.map(reservation => (
             <UserReservationItem
               fetchReservations={fetchReservations}
               key={reservation.id}
