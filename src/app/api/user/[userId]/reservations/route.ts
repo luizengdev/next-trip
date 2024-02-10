@@ -1,5 +1,4 @@
 import { prisma } from "@/lib/prisma";
-import { NextResponse } from "next/server";
 
 export async function GET(
   request: Request,
@@ -23,5 +22,5 @@ export async function GET(
     },
   });
 
-  return new NextResponse(JSON.stringify(reservations), { status: 200 });
+  return new Response(JSON.stringify(reservations), { status: 200 });
 }
