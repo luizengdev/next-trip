@@ -7,13 +7,15 @@ export async function GET(
   const { searchParams } = new URL(request.url);
 
   if (!userId) {
-    return (
+    return new Response(
       JSON.stringify({
         body: {
           message: "Missing userId",
         },
       }),
-      { status: 400 }
+      {
+        status: 400,
+      },
     );
   }
 
