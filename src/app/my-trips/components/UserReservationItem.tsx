@@ -20,11 +20,11 @@ const UserReservationItem = ({
   reservation,
   fetchReservations,
 }: UserReservationItemProps) => {
+  const { trip } = reservation;
+
   const router = useRouter();
 
   const [showModal, setShowModal] = useState<boolean>(false);
-
-  const { trip } = reservation;
 
   const handleDeleteClick = async () => {
     const res = await fetch(`/api/trips/reservation/${reservation.id}`, {

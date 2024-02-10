@@ -4,11 +4,9 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   const req = await request.json();
 
-  const { startDate, endDate, userId, tripId, totalPaid, guests } = req;
-
   const trip = await prisma.trip.findUnique({
     where: {
-      id: tripId,
+      id: req.tripId,
     },
   });
 
@@ -24,12 +22,12 @@ export async function POST(request: Request) {
 
   await prisma.tripReservation.create({
     data: {
-      startDate: new Date(startDate),
-      endDate: new Date(endDate),
-      userId,
-      tripId,
-      totalPaid,
-      guests,
+      startDate: new Date(req.startDate),
+      endDate: new Date(req.endDate),
+      userId: req.userId,
+      tripId: req.tripId,
+      totalPaid: req.totalPaid,
+      guests: req.guests,
     },
   });
 

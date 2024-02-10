@@ -3,7 +3,7 @@ import Stripe from "stripe";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { NextResponse } from "next/server";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2023-10-16",
 });
 
@@ -24,13 +24,13 @@ export async function POST(request: Request) {
   } = req;
 
   const session = await stripe.checkout.sessions.create({
-    success_url: process.env.HOST_URL!,
+    success_url: `${process.env.HOST_URL}/my-trips`,
     metadata: {
       tripId,
       startDate,
       endDate,
       guests,
-      userId: (userSession?.user as any)?.id,
+      userId: (userSession?.user as { id: string })?.id,
       totalPrice,
     },
     line_items: [
