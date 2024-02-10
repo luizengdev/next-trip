@@ -14,7 +14,10 @@ const TripItem = ({ trip }: TripItemProps) => {
       <Link href={`/trips/${trip.id}`} className="relative h-[280px] w-[280px]">
         <Image
           src={trip.coverImage}
-          className="object-cover rounded-lg shadow-md"
+          style={{
+            objectFit: "cover",
+          }}
+          className="rounded-lg shadow-md"
           fill
           alt={`Imagem da viagem ${trip.name}`}
         />
