@@ -25,6 +25,11 @@ const MyTrips = () => {
       `/api/user/${(data?.user as any)?.id}/reservations`,
     );
 
+    if (!response.ok) {
+      console.error("Error fetching reservations");
+      return;
+    }
+
     const json = await response.json();
 
     setReservations(json);

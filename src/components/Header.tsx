@@ -29,7 +29,7 @@ const Header = () => {
     <div className="container mx-auto p-5 py-0 h-[93px] flex justify-between items-center">
       <Link href="/">
         <div className="flex items-center gap-2">
-          <Image src="/logo.png" width={50} height={32} alt="Logo" />
+          <Image src="/logo.png" width={50} height={50} alt="Logo" />
           <h1 className="text-primary text-xl font-semibold">Next Trip</h1>
         </div>
       </Link>
