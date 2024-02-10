@@ -98,8 +98,8 @@ const TripReservation = ({
   const endDate = watch("endDate");
 
   return (
-    <div className="flex flex-col px-5">
-      <p className="text-xl hidden text-primaryDarker mb-4">
+    <div className="flex flex-col px-5 lg:min-w-[380px] lg:p-5 lg:border-grayLighter lg:border lg:rounded-lg lg:shadow-md">
+      <p className="text-xl hidden text-primaryDarker mb-4 lg:block">
         <span className="font-semibold">R${pricePerDay}</span> por dia
       </p>
 
@@ -181,7 +181,7 @@ const TripReservation = ({
         </p>
       </div>
 
-      <div className="pb-10 border-b border-b-grayLighter w-full">
+      <div className="pb-10 border-b border-b-grayLighter w-full lg:border-none lg:pb-0">
         <Button
           className="mt-3 w-full"
           onClick={() => handleSubmit(onSubmit)()}
