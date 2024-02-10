@@ -1,3 +1,113 @@
+<p align="center">
+  <img alt="Next Trips logo" src="public/logo-github.png" width="220px"/>
+</p>
+
+## 🚀 Projeto
+
+Aplicação web que permite que o usuário realize reservas para viagens.
+
+## 🎥 Demonstração
+
+<img src="https://imgur.com/UnCtUDT.gif"/>
+
+## 💡 Funcionalidades
+
+- Reserva de viagem;
+- Cancelamento de reserva;
+- Pagamentos;
+- Autenticação com o Google.
+
+## 🛠️ Stack utilizada
+
+Next.js, React, TypeScript, Prisma, PostgreSQL, Next Auth, Tailwind CSS, React Hook Form, Stripe API, Google Maps API.
+
+| <img src="https://img.icons8.com/color/48/000000/nextjs.png"/> | <img src="https://img.icons8.com/plasticine/48/000000/react.png"/> | <img src="https://img.icons8.com/color/48/000000/typescript.png"/> | <img src="https://img.icons8.com/color/48/000000/prisma-orm.png"/> | <img src="https://img.icons8.com/color/48/000000/postgreesql.png"/> |
+|-----------------------------------------------------------------|---------------------------------------------------------------------|-----------------------------------------------------------------------|---------------------------------------------------------------------|-----------------------------------------------------------------------|
+| <img src="https://next-auth.js.org/img/logo/logo-sm.png" width="32px"/> | <img src="https://img.icons8.com/color/48/000000/tailwindcss.png"/> | <img src="https://img.icons8.com/color/48/000000/react-native.png"/> | <img src="https://img.icons8.com/color/48/000000/stripe.png"/> | <img src="https://img.icons8.com/color/48/000000/google-maps.png"/> |
+
+
+## ⚙️ Variáveis de Ambiente
+
+Para rodar esse projeto localmente, é necessário adicionar as seguintes variáveis de ambiente no seu .env
+
+```
+DATABASE_URL = URL do seu banco de dados
+```
+
+```
+HOST_URL = URL do ambiente (development ou production)
+```
+
+```
+GOOGLE_CLIENT_ID = ID do cliente OAuth do Google
+```
+
+```
+GOOGLE_CLIENT_SECRET = Secret do cliente OAuth do Google
+```
+
+```
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY = Key da API do Google Maps
+```
+
+```
+STRIPE_SECRET_KEY = Key secreta da API do Stripe
+```
+
+```
+NEXT_PUBLIC_STRIPE_KEY = Key pública da API do Stripe
+```
+
+```
+STRIPE_WEBHOOK_SECRET_KEY = Key secreta do webhook do Stripe
+```
+
+É necessário instalar o [Stripe CLI](https://stripe.com/docs/stripe-cli?locale=pt-BR), logar no Stripe, rodar o script `stripe:listen` para obter a key e ouvir por eventos do Stripe, e então está tudo pronto para realizar pagamentos.
+
+Para realizar um pagamento de teste no Stripe é necessário utilizar um cartão de crédito de teste. Você pode encontrar os cartões de teste [aqui](https://stripe.com/docs/testing#cards).
+
+```
+NEXTAUTH_SECRET = Secret do Next Auth
+```
+
+Pode ser qualquer string aleatória, é necessário apenas em produção, para ambiente de desenvolvimento é opcional.
+
+## 💻 Rodando localmente
+
+Clone o projeto
+
+```bash
+  git clone https://github.com/joao-vitor-felix/traveling.git
+```
+
+Entre no diretório do projeto
+
+```bash
+  cd next-trip
+```
+
+Instale as dependências
+
+```bash
+  npm ou yarn install
+```
+
+É possível povoar o banco utilizando o `seed.ts` script em `src/app/lib`, para isso rode o comando
+
+```
+npx prisma db seed
+```
+
+Inicie o servidor
+
+```bash
+  yarn dev
+```
+
+## ⌛ Deployment
+
+Este repositório utiliza continuous deployment com a Vercel. Ou seja, toda vez que um commit é feito, o build para produção é feito automaticamente.
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
