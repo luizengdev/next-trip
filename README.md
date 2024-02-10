@@ -6,9 +6,10 @@
 
 Aplicação web que permite que o usuário realize reservas para viagens.
 
-## 🎥 Demonstração
+## 🎥 Visão do Projeto
+https://travel-next-trips.vercel.app/
 
-<img src="https://imgur.com/UnCtUDT.gif"/>
+
 
 ## 💡 Funcionalidades
 
