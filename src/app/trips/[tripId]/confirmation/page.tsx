@@ -87,11 +87,11 @@ const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
 
     await stripe?.redirectToCheckout({ sessionId });
 
-    setIsLoading(false);
-
     toast.success("Reserva realizada com sucesso!", {
       position: "bottom-center",
     });
+
+    setIsLoading(false);
   };
 
   const startDate = new Date(searchParams.get("startDate") as string);
