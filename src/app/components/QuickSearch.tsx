@@ -37,6 +37,12 @@ const QuickSearch = () => {
           name="Pousada"
           alt="Pesquisar Pousadas"
         />
+        <Icon
+          href="/trips/search?text=Ilhas"
+          path="/ilha.png"
+          name="Ilhas"
+          alt="Pesquisar Ilhas"
+        />
       </div>
     </div>
   );

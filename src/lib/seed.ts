@@ -282,6 +282,68 @@ async function main() {
         recommended: false,
         maxGuests: 5,
       },
+      {
+        name: "Ilha da Gipoia",
+        description:
+          "É o local ideal para quem deseja uma experiência única de descanso, tranquilidade e ar puro junto à natureza. A casa não é luxuosa porém é charmosa na sua essência e acolhedora, com uma vista total para o mar (de tirar o fôlego)! Nossa família, amigos e hóspedes, descrevem o local como paradisíaco.",
+        startDate: new Date("2024-02-06"),
+        endDate: new Date("2026-03-05"),
+        location: "Angra dos Reis, Brasil",
+        locationDescription:
+          "Angra dos Reis, Rio de Janeiro, Brasil. A casa fica ao lado de um restaurante caso nossos hospedes não queiram cozinhar.",
+        latitude: -23.0458,
+        longitude: -44.3568,
+        countryCode: "BR",
+        coverImage:
+          "https://images.unsplash.com/photo-1602623104914-f70f67532d97?q=80&w=1548&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        imagesUrl: [
+          "https://images.unsplash.com/photo-1636392161937-dc96e2159458?q=80&w=1548&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          "https://images.unsplash.com/photo-1501426026826-31c667bdf23d?q=80&w=1472&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          "https://a0.muscache.com/im/pictures/miso/Hosting-4325035/original/318dce6e-b7f5-4e46-a079-78e168dcbc6e.jpeg?im_w=1440",
+        ],
+        pricePerDay: 898,
+        highlights: [
+          "Cozinha",
+          "Acesso à praia (à beira-mar)",
+          "WiFi grátis",
+          "Estacionamento grátis",
+          "Vista para o oceano",
+          "Maquina de lavar",
+        ],
+        recommended: true,
+        maxGuests: 5,
+      },
+      {
+        name: "Ilha de Boipeba",
+        description:
+          "Ilha paradisíaca, areia branca, mar azul, água morna, piscinas naturais, boca do rio, coqueiral, stand-up paddle, fat bike, caminhada em praia deserta, passeios de lancha, serviço personalizado de qualidade, espaço charmoso e aconchegante…. Esse cartão resumo sua estadia nesta casa de luxo para alugar na Bahia, na Ponta dos Castelhanos, Ilha de Boipeba.",
+        startDate: new Date("2024-02-06"),
+        endDate: new Date("2026-03-05"),
+        location: "Bahia, Brasil",
+        locationDescription:
+          "Angra dos Reis, Rio de Janeiro, Brasil. A casa fica ao lado de um restaurante caso nossos hospedes não queiram cozinhar.",
+        latitude: -13.5819,
+        longitude: -38.9286,
+        countryCode: "BR",
+        coverImage:
+          "https://a0.muscache.com/im/pictures/52dfa2a4-e506-4c76-98fd-f1c010f812ba.jpg?im_w=1200",
+        imagesUrl: [
+          "https://a0.muscache.com/im/pictures/48900bb9-6d10-4bd8-a647-f06caf3f3f98.jpg?im_w=1440",
+          "https://a0.muscache.com/im/pictures/a089c94b-2928-4d75-83f6-c097ee987ba3.jpg?im_w=1440",
+          "https://a0.muscache.com/im/pictures/8f047a6a-f2fb-4727-a133-af20e5bc5a09.jpg?im_w=1440",
+        ],
+        pricePerDay: 898,
+        highlights: [
+          "Cozinha",
+          "Acesso à praia (à beira-mar)",
+          "WiFi grátis",
+          "Estacionamento grátis",
+          "Vista para o oceano",
+          "Maquina de lavar",
+        ],
+        recommended: false,
+        maxGuests: 5,
+      },
     ],
   });
 }
@@ -290,7 +352,7 @@ main()
   .then(async () => {
     await prisma.$disconnect();
   })
-  .catch(async (e) => {
+  .catch(async e => {
     console.error(e);
     await prisma.$disconnect();
     process.exit(1);
