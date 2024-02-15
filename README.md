@@ -13,10 +13,16 @@ https://travel-next-trips.vercel.app/
 
 ## 💡 Funcionalidades
 
-- Reserva de viagem;
-- Cancelamento de reserva;
-- Pagamentos;
+- Buscar viagens por localização, por data inicial, orçamento máximo.
+- Ver detalhes de uma viangem, descrição da viagem, ver foto principal, destaques, preço por noite, data, hóspedes, diárias.
+- Reservar uma viagem.
 - Autenticação com o Google.
+- Garantir que a data selecionada não foi reservada por outro usuário.
+- Garantir que número máximo de hóspedes seja respeitado.
+- Ver viagens reservadas.
+- Fazer pagamento
+- Modal de confimação para cancelar viagem reservada.
+- Ao cancelar uma viagem, a data precisa ficar disponivel novamente.
 
 ## 🛠️ Stack utilizada
 
