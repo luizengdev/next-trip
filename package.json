@@ -16,6 +16,7 @@
   "dependencies": {
     "@auth/prisma-adapter": "^1.2.0",
     "@prisma/client": "5.9.1",
+    "@react-google-maps/api": "^2.19.3",
     "@stripe/stripe-js": "^2.4.0",
     "@types/react-datepicker": "^4.19.5",
     "@typescript-eslint/parser": "^6.21.0",

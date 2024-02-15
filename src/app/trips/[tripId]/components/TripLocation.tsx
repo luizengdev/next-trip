@@ -1,51 +1,64 @@
+"use client";
+
 import Button from "@/components/Button";
-import Image from "next/image";
-import React from "react";
+import { useLoadScript, GoogleMap, Marker } from "@react-google-maps/api";
 
 interface TripLocationProps {
   location: string;
   locationDescription: string;
+  latitude: number;
+  longitude: number;
 }
 
-const TripLocation = ({ location, locationDescription }: TripLocationProps) => {
+const TripLocation = ({
+  location,
+  locationDescription,
+  latitude,
+  longitude,
+}: TripLocationProps) => {
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string,
+  });
+
+  if (!isLoaded) return <div>Loading...</div>;
+
+  const center = {
+    lat: latitude,
+    lng: longitude,
+  };
+
+  const handleButtonClick = () => {
+    window.open(
+      `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`,
+      "_blank",
+    );
+  };
+
   return (
     <div className="p-5 lg:p-0 lg:mt-12 lg:pb-20">
-      <h2 className="font-semibold text-primaryDarker mb-5 lg:text-xl">
+      <h2 className="font-semibold text-lg text-primary mb-5 lg:text-xl">
         Localização
       </h2>
-      <div className="relative h-[280px] w-full lg:hidden">
-        <Image
-          src="/map-mobile.png"
-          alt={location}
-          fill
-          style={{
-            objectFit: "cover",
-          }}
-          className="rounded-lg shadow-md"
-        />
+      <div className="relative h-[280px] w-full">
+        <GoogleMap
+          zoom={10}
+          center={center}
+          mapContainerClassName="rounded-lg shadow-md h-full w-full"
+        >
+          <Marker position={center} />
+        </GoogleMap>
       </div>
 
-      <div className="relative h-[480px] w-full hidden lg:block">
-        <Image
-          src="/map-desktop.png"
-          alt={location}
-          fill
-          style={{
-            objectFit: "cover",
-          }}
-          className="rounded-lg shadow-md"
-        />
-      </div>
-
-      <h3 className="text-primaryDarker text-sm font-semibold mt-3 lg:text-base lg:mt-5">
+      <h3 className="text-primary text-base font-semibold mt-5 lg:text-xl">
         {location}
       </h3>
-      <p className="text-xs text-primaryDarker mt-2 leading-5 lg:text-sm lg:mt-4">
+      <p className="text-sm leading-6 text-gray-900 mt-3 lg:text-base">
         {locationDescription}
       </p>
       <Button
         variant="outlined"
-        className="w-full mt-5 hover:bg-primary hover:text-white"
+        className="w-full mt-5"
+        onClick={handleButtonClick}
       >
         Ver no Google Maps
       </Button>

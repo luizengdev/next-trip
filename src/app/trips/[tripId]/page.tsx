@@ -42,8 +42,10 @@ const TripDetails = async ({ params }: { params: { tripId: string } }) => {
         </div>
       </div>
       <TripLocation
-        location={trip.location}
         locationDescription={trip.locationDescription}
+        location={trip.location}
+        latitude={trip.latitude}
+        longitude={trip.longitude}
       />
     </div>
   );
