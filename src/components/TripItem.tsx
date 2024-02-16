@@ -7,7 +7,7 @@ import HeartButton from "./HeartButton";
 
 interface TripItemProps {
   trip: Trip;
-  fetchFavorites: () => void;
+  fetchFavorites?: () => void;
 }
 
 const TripItem = ({ trip, fetchFavorites }: TripItemProps) => {
