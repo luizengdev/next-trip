@@ -8,6 +8,8 @@ Aplicação web que permite que o usuário realize reservas para viagens.
 
 ## 🎥 Visão do Projeto
 https://travel-next-trips.vercel.app/
+![image](https://github.com/luizengdev/next-trip/assets/47059188/5b6c79f0-1731-45bf-9f75-362da1f1428c)
+![image](https://github.com/luizengdev/next-trip/assets/47059188/ba40eb96-3d53-4775-9d42-2f98b59a5daa)
 
 
 
@@ -16,6 +18,7 @@ https://travel-next-trips.vercel.app/
 - Buscar viagens por localização, por data inicial, orçamento máximo.
 - Ver detalhes de uma viangem, descrição da viagem, ver foto principal, destaques, preço por noite, data, hóspedes, diárias.
 - Reservar uma viagem.
+- Favoritar e visualizar as viagens favoritadas na página de favoritos.
 - Autenticação com o Google.
 - Garantir que a data selecionada não foi reservada por outro usuário.
 - Garantir que número máximo de hóspedes seja respeitado.
