@@ -3,12 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import ReactCountryFlag from "react-country-flag";
+import HeartButton from "./HeartButton";
 
 interface TripItemProps {
   trip: Trip;
+  fetchFavorites: () => void;
 }
 
-const TripItem = ({ trip }: TripItemProps) => {
+const TripItem = ({ trip, fetchFavorites }: TripItemProps) => {
   return (
     <div className="flex flex-col">
       <Link href={`/trips/${trip.id}`} className="relative h-[280px] w-[280px]">
@@ -21,6 +23,9 @@ const TripItem = ({ trip }: TripItemProps) => {
           fill
           alt={`Imagem da viagem ${trip.name}`}
         />
+        {trip && trip.id && (
+          <HeartButton tripId={trip.id} onFavoriteToggle={fetchFavorites} />
+        )}
       </Link>
 
       {/* TÍTULO E INFORMAÇÔES */}

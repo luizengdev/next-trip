@@ -2,6 +2,7 @@ import React from "react";
 import ReactCountryFlag from "react-country-flag";
 import Image from "next/image";
 import { Trip } from "@prisma/client";
+import HeartButton from "@/components/HeartButton";
 
 interface TripHeaderProps {
   trip: Trip;
@@ -17,6 +18,7 @@ const TripHeader = ({ trip }: TripHeaderProps) => {
           style={{ objectFit: "cover" }}
           alt={trip.name}
         />
+        <HeartButton tripId={trip.id} onFavoriteToggle />
       </div>
 
       <div className="hidden lg:grid grid-cols-[2fr,1fr,1fr] gap-2 grid-rows-2 lg:order-2">
@@ -30,6 +32,7 @@ const TripHeader = ({ trip }: TripHeaderProps) => {
             alt={trip.name}
             className="rounded-tl-lg rounded-bl-lg shadow-md"
           />
+          <HeartButton tripId={trip.id} onFavoriteToggle />
         </div>
 
         <div className="relative h-[200px] w-full">
