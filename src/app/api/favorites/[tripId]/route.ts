@@ -1,40 +1,97 @@
-import { getServerSession } from "next-auth";
 import { prisma } from "@/lib/prisma";
-import { NextApiResponse, NextApiRequest } from "next";
-import { authOptions } from "../../auth/[...nextauth]/route";
+import { NextResponse } from "next/server";
 
-export async function handle(req: NextApiRequest, res: NextApiResponse) {
-  const tripId = req.query.tripId as string;
-  const userSession = await getServerSession(authOptions);
-
-  if (!userSession || !userSession.user || !(userSession.user as any).id) {
-    res
-      .status(401)
-      .json({ message: "Você precisa estar logado para fazer isso." });
-    return;
-  }
-
-  if (req.method === "POST") {
-    const favorito = await prisma.favorito.create({
-      data: {
-        userId: (userSession.user as any).id,
-        tripId: tripId,
-      },
-    });
-    res.json(favorito);
-  } else if (req.method === "DELETE") {
-    const favorito = await prisma.favorito.delete({
-      where: {
-        userId_tripId: {
-          userId: (userSession.user as any).id,
-          tripId: tripId,
+export async function GET(
+  request: Request,
+  { params: { tripId } }: { params: { tripId: string } },
+) {
+  if (!tripId) {
+    return new Response(
+      JSON.stringify({
+        body: {
+          message: "Missing tripId",
         },
+      }),
+      {
+        status: 400,
       },
-    });
-    res.json(favorito);
-  } else {
-    throw new Error(
-      `The HTTP ${req.method} method is not supported at this route.`,
     );
   }
+  const favorites = await prisma.favorito.findMany({
+    where: {
+      tripId: tripId,
+    },
+  });
+
+  return new NextResponse(JSON.stringify(favorites), { status: 200 });
+}
+
+export async function POST(request: Request) {
+  const req = await request.json();
+
+  const trip = await prisma.trip.findMany({
+    where: {
+      id: req.tripId,
+    },
+  });
+
+  if (!trip) {
+    return new NextResponse(
+      JSON.stringify({
+        error: {
+          code: "TRIP_NOT_FOUND",
+        },
+      }),
+    );
+  }
+
+  await prisma.favorito.create({
+    data: {
+      userId: req.userId,
+      tripId: req.tripId,
+    },
+  });
+
+  return new NextResponse(
+    JSON.stringify({
+      success: true,
+    }),
+    { status: 201 },
+  );
+}
+
+export async function DELETE(request: Request) {
+  const req = await request.json();
+
+  const trip = await prisma.trip.findUnique({
+    where: {
+      id: req.tripId,
+    },
+  });
+
+  if (!trip) {
+    return new NextResponse(
+      JSON.stringify({
+        error: {
+          code: "TRIP_NOT_FOUND",
+        },
+      }),
+    );
+  }
+
+  await prisma.favorito.delete({
+    where: {
+      userId_tripId: {
+        userId: req.userId,
+        tripId: req.tripId,
+      },
+    },
+  });
+
+  return new NextResponse(
+    JSON.stringify({
+      success: true,
+    }),
+    { status: 200 },
+  );
 }
