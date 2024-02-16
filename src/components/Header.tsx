@@ -60,15 +60,20 @@ const Header = () => {
           />
 
           {menuIsOpen && (
-            <div className="z-50 absolute top-14 left-0 w-full h-[100px] bg-white rounded-lg shadow-md flex flex-col justify-center items-center">
+            <div className="z-50 absolute top-14 left-0 w-full h-[110px] bg-white rounded-lg shadow-md flex flex-col justify-center items-center">
               <Link href="/my-trips" onClick={() => setMenuIsOpen(false)}>
-                <button className="text-primary text-xs font-semibold pb-2 border-b border-grayLighter border-solid">
+                <button className="text-primaryDarker hover:text-primary text-xs font-semibold pb-2">
                   Minhas viagens
+                </button>
+              </Link>
+              <Link href="/my-favorites" onClick={() => setMenuIsOpen(false)}>
+                <button className="text-primaryDarker hover:text-primary text-xs font-semibold pt-1 pb-2 border-y border-grayLighter border-solid">
+                  Favoritos
                 </button>
               </Link>
 
               <button
-                className="text-primary text-xs font-semibold pt-2"
+                className="text-primaryDarker hover:text-primary text-xs font-semibold pt-1"
                 onClick={handleLogoutClick}
               >
                 Logout
